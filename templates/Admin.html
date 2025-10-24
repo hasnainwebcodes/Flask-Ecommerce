@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - E-commerce</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: "light-blue";
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .content-wrapper {
+            padding: 30px 0;
+        }
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .nav-tabs {
+            border-bottom: 2px solid #dee2e6;
+            margin-bottom: 25px;
+        }
+        .nav-tabs .nav-link {
+            color: #6c757d;
+            font-weight: 500;
+            border: none;
+            padding: 12px 24px;
+        }
+        .nav-tabs .nav-link:hover {
+            border-color: transparent;
+            color: #0d6efd;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            border-bottom: 3px solid #0d6efd;
+            background: transparent;
+        }
+        .badge {
+            font-weight: 500;
+        }
+        .table th {
+            font-weight: 600;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-store me-2"></i>E-commerce Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products"></i>Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid content-wrapper">
+        <div class="container">
+            <!-- Tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">
+                        <i class="fas fa-box me-2"></i>Products
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab">
+                        <i class="fas fa-shopping-cart me-2"></i>Orders
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab">
+                        <i class="fas fa-users me-2"></i>Users
+                    </button>
+                </li>
+            </ul>
+	<h1>Add a new Image here </h1>
+	<hr>
+	<form action="/uploader" method="POST" enctype="multipart/form-data">
+	<input type="file" name="file1"  >
+	<hr>
+	<button type="submit" class="btn btn-success text-uppercase">Add</button>
+	</form>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Products Tab -->
+                <div class="tab-pane fade show active" id="products" role="tabpanel">
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="mb-0">Products Management</h4>
+                            <a href="/products/add" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Add Product</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Description</th>
+			         <th>Specification</th>
+			         <th>Brand</th>
+			         <th>Img1</th>
+			         <th>Img2</th>
+			         <th>Img3</th>
+			         <th>Img4</th>
+			         <th>Img5</th>
+			         <th>Img6</th>
+			         <th>Img7</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+			{% for product in products %}
+                                    <tr>
+                                        <td>{{ product.id }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.category }}</td>
+                                        <td>{{ product.price }}</td>
+                                        <td>{{ product.stock }}</td>
+                                        <td>{{ product.description }}</td>
+                                        <td>{{ product.specification }}</td>
+                                        <td>{{ product.brand }}</td>
+                                        <td>{{ product.image1 }}</td>
+                                        <td>{{ product.image2 }}</td>
+                                        <td>{{ product.image3 }}</td>
+                                        <td>{{ product.image4 }}</td>
+                                        <td>{{ product.image5 }}</td>
+                                        <td>{{ product.image6 }}</td>
+                                        <td>{{ product.image7 }}</td>
+                                 
+                                        <td>
+                                            <a href="/products/{{ product.id }}/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                                            <form action="/products/{{ product.id }}/delete" method="POST"> <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button></form>
+                                        </td>
+                                    </tr>
+			{% endfor %}
+                                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Tab -->
+                <div class="tab-pane fade" id="orders" role="tabpanel">
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="mb-0">Orders Management</h4>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>User ID</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Item</th>
+                                        <th>Status</th>
+                                        <th>Size</th>
+                                        <th>Quantity</th>
+                                        <th>Adress</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+			{% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.userid }}</td>
+                                        <td>{{ order.madeat }}</td>
+                                        <td>{{ order.amount }}</td>
+                                        <td>{{ order.item }}</td>
+                                        <td>{{ order.status }}</td>
+                                        <td>{{ product.size }}</td>
+                                        <td>{{ order.quantity }}</td>
+                                        <td>{{ order.adress }}</td>
+                                        <td>
+                                            <a href="/orders/{{ order.id }}/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                                            <form action="/orders/{{ order.id }}/delete" method="POST"> <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button></form>
+                                        </td>
+                                    </tr>
+			{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div class="tab-pane fade" id="users" role="tabpanel">
+                    <div class="table-container">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="mb-0">Users Management</h4>
+            
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Password</th>
+                                        <th>Phone</th>
+                                        <th>Since</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   {% for user in userss %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.name }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.role }}</td>
+                                        <td>{{ user.password }}</td>
+                                        <td>{{ user.phone }}</td>
+                                        <td>{{ user.since }}</td>
+                                        <td>{{ user.adress}}</td>
+                                        
+                                        <td>
+                                            <a href="/users/{{ user.id }}/edit" class="btn btn-sm btn-outline-primary">Edit</a>
+                                            <form action="/users/{{user.id }}/delete" method="POST"> <button type="submit" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button></form>
+                                        </td>
+                                    </tr>
+			{% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
