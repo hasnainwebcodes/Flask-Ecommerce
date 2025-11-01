@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request, session,redirect,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
+import os,stripe
 from flask_jwt_extended.exceptions import NoAuthorizationError, RevokedTokenError, FreshTokenRequired
 import time
 from math import floor
@@ -27,6 +27,8 @@ bcrypt= Bcrypt(app)
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 blacklist = set()
+stripe.api_key = "sk_test_51SBVr9DRIV9EVyvD2849lleX4nCEVrk8TkgnJ3ZXoxwIHFbrdYKHjR5D2iOqT19Z5Bogn9FoZ67f56jntlVGXnxn00JrMDXKEZ"
+PUBLISHABLE_KEY ="pk_test_51SBVr9DRIV9EVyvDsJq69RKUGnOqwYd5bydXmwCkwwl1EaEEUMXX4TgfYiLX4OYZqmHsjPEpssI2yKYhQL75H7hP00QwBZuRF3"
 
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 app.config["JWT_COOKIE_SECURE"] = False  # True only in production (HTTPS)
@@ -321,7 +323,24 @@ def add_order():
                         body="\n Product:"+items+"\n Quantity:"+quantity+"\n Size:"+itemsize+"\n Adress:"+adress+"\n cod:False \n Please Start shipping so that User doesn't face any inconvience")
           except Exception as e:
                print(e)
-          return redirect("/payments")
+          return redirect("/payments/"+str(order.id))
+@app.route("/payments/<int:id>", methods=['GET','POST'])
+@jwt_required(locations=["cookies"])
+def payments(id):
+     if request.method== 'POST':
+           try:
+                  data=request.get_json()
+                  amount= int(data.get("amount",500))
+                  intent = stripe.Payment.create(
+                      amount=amount,
+                      currency="usd",
+                      automatic_payment_methods={"enabled": True},
+                  )
+                  return jsonify({"clientSecret": intent.client_secret})
+           except Exception as e:
+                  return jsonify({"error": str(e)}),400   
+     order= Orders.query.filter_by(id=id).first()
+     return render_template("payments.html",order=order,publishable_key= PUBLISHABLE_KEY)
 @app.route("/orders/<int:id>/edit", methods=['GET','POST'])
 @jwt_required(locations=["cookies"])
 def edit_order(id):

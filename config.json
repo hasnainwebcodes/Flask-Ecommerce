@@ -3,13 +3,8 @@
     "local_server": "True",
     "local_url": "mysql+mysqlconnector://root:@localhost:3308/site",
     "prod_url": "mysql+mysqlconnector://root:@localhost:3308/site",
-    "fb_url": "https://facebook.com/codingthunder",
-    "tw_url": "https://twitter.com/codingthunder",
-    "gh_url": "https://github.com/codingthunder",
     "gmail_user":"vighiorazahasnain@gmail.com",
     "gmail_password": "oiutwuvydtxdpksl",
-    "admin_name":"hasnain",
-    "admin_password":"hasnain3010?",
     "upload_location":"C:\\Users\\User\\Desktop\\'\\hasnain\\python work\\Flask\\E-Commerce project\\static\\assets\\img"
   }
 }
