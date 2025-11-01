@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checkout — Mock Payment</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent1: #4f46e5;
+      --accent2: #7c3aed;
+      --muted: #6b7280;
+    }
+    body{ background: linear-gradient(180deg,#f5f7fb 0%, #ffffff 100%); font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; padding:28px 0;}
+    .checkout-card{ max-width:1100px; margin:18px auto; border-radius:12px; overflow:hidden; box-shadow:0 12px 30px rgba(20,20,50,0.08);}
+    .left-side{ background: linear-gradient(180deg,var(--accent1), var(--accent2)); color:#fff; padding:28px;}
+    .brand { font-weight:700; letter-spacing:0.2px; }
+    .chip{ background: rgba(255,255,255,0.12); padding:6px 10px; border-radius:8px; display:inline-block; margin-top:12px; font-size:0.85rem; }
+    .card-form { padding:28px; background: #fff; }
+    .field-label{ font-size:0.9rem; color:var(--muted); margin-bottom:6px; }
+    .card-preview{ background: linear-gradient(135deg,#0ea5e9, #7c3aed); border-radius:10px; color:#fff; padding:14px; }
+    .card-number{ font-size:1.15rem; letter-spacing:2px; margin-top:8px; }
+    .muted-small{ color:var(--muted); font-size:0.9rem; }
+    .btn-pay{ background: linear-gradient(90deg,var(--accent1),var(--accent2)); border:none; color:#fff; padding:12px 18px; border-radius:8px; font-weight:600; }
+    .btn-pay:disabled{ opacity:0.6; }
+    .receipt { background:#f8fafc; border-radius:8px; padding:14px; }
+    @media (max-width: 767px){
+      .left-side{ padding:18px; }
+      .card-form{ padding:18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="checkout-card row g-0 shadow-sm">
+    <!-- LEFT: Visual + Info -->
+    <div class="col-lg-5 left-side d-flex flex-column justify-content-between">
+      <div>
+        <div class="d-flex align-items-center mb-3">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;margin-right:12px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 10h18M7 6h10l1 4H6l1-4z" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="brand">TeraStore</div>
+            <div class="muted-small">Mock Checkout • Testing Environment</div>
+          </div>
+        </div>
+
+        <div class="card-preview mb-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <div style="font-size:0.85rem;opacity:0.95;">Card preview</div>
+            <div class="chip">TEST MODE</div>
+          </div>
+          <div class="card-number" id="preview-number">4242 4242 4242 4242</div>
+          <div class="d-flex justify-content-between align-items-end mt-3">
+            <div>
+              <div style="font-size:0.75rem;opacity:0.9;">Cardholder</div>
+              <div id="preview-name" style="font-weight:600;">Test User</div>
+            </div>
+            <div>
+              <div style="font-size:0.75rem;opacity:0.9;text-align:right;">Expires</div>
+              <div id="preview-exp" style="font-weight:600;text-align:right;">12/34</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="muted-small">Order summary</div>
+        <ul class="list-unstyled mt-2">
+          <li class="d-flex justify-content-between"><span>Product</span><strong id="summary-product">Awesome Shoes</strong></li>
+          <li class="d-flex justify-content-between"><span>Qty</span><span id="summary-qty">1</span></li>
+          <li class="d-flex justify-content-between"><span>Shipping</span><span id="summary-ship">$3.00</span></li>
+          <li class="d-flex justify-content-between mt-1"><span class="muted-small">Taxes</span><span class="muted-small">$0.00</span></li>
+        </ul>
+
+      </div>
+
+      <div class="mt-3">
+        <div class="muted-small">Test Tips</div>
+        <ul class="muted-small">
+          <li>Use card <strong>4242 4242 4242 4242</strong> for success simulation.</li>
+          <li>Choose "Simulate Failure" to test error flow.</li>
+          <li>This page is mock — no real payments.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="col-lg-7 card-form">
+      <h5 class="mb-3">Complete payment</h5>
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="field-label">Amount (USD)</label>
+          <input id="amount" type="number" class="form-control" min="1" value="49.99" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="field-label">Mode</label>
+          <select id="mode" class="form-select">
+            <option value="success" selected>Simulate Success</option>
+            <option value="fail">Simulate Failure</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label class="field-label">Cardholder name</label>
+          <input id="card-name" class="form-control" placeholder="Full name on card" value="Test User">
+        </div>
+
+        <div class="col-md-7">
+          <label class="field-label">Card number</label>
+          <input id="card-number" class="form-control" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242">
+        </div>
+
+        <div class="col-md-3">
+          <label class="field-label">Expiry (MM/YY)</label>
+          <input id="card-exp" class="form-control" placeholder="MM/YY" value="12/34">
+        </div>
+
+        <div class="col-md-2">
+          <label class="field-label">CVC</label>
+          <input id="card-cvc" class="form-control" placeholder="123" value="123">
+        </div>
+
+        <div class="col-12">
+          <label class="field-label">Billing email (optional)</label>
+          <input id="bill-email" class="form-control" placeholder="you@example.com">
+        </div>
+
+        <div class="col-12 d-flex gap-2 align-items-center">
+          <button id="pay" class="btn btn-pay">Pay <span id="pay-amount" class="ms-2 small-muted"></span></button>
+          <button id="reset" class="btn btn-outline-secondary">Reset</button>
+          <div id="spinner" class="ms-2 d-none align-items-center">
+            <div class="spinner-border" role="status" style="width:1.2rem;height:1.2rem;"><span class="visually-hidden">Loading...</span></div>
+          </div>
+          <div class="ms-auto muted-small">Secure test environment</div>
+        </div>
+
+        <div class="col-12 mt-3">
+          <div id="alertSpace"></div>
+        </div>
+
+        <div class="col-12 mt-2">
+          <div id="receiptArea" class="d-none receipt"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Elements
+  const payBtn = document.getElementById('pay');
+  const resetBtn = document.getElementById('reset');
+  const spinner = document.getElementById('spinner');
+  const amountInput = document.getElementById('amount');
+  const modeSelect = document.getElementById('mode');
+  const alertSpace = document.getElementById('alertSpace');
+  const receiptArea = document.getElementById('receiptArea');
+
+  const previewNumber = document.getElementById('preview-number');
+  const previewName = document.getElementById('preview-name');
+  const previewExp = document.getElementById('preview-exp');
+  const cardNumberInput = document.getElementById('card-number');
+  const cardNameInput = document.getElementById('card-name');
+  const cardExpInput = document.getElementById('card-exp');
+
+  // Helpers
+  function showSpinner(on) {
+    spinner.classList.toggle('d-none', !on);
+    payBtn.disabled = on;
+  }
+  function showAlert(type, message) {
+    alertSpace.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+  }
+  function clearAlert() { alertSpace.innerHTML = ''; }
+  function showReceipt(obj) {
+    const html = `
+      <div><strong>Payment Successful</strong></div>
+      <div class="mt-2"><strong>Payment ID:</strong> <code>${obj.id}</code></div>
+      <div><strong>Amount:</strong> $${parseFloat(obj.amount).toFixed(2)}</div>
+      <div><strong>Card:</strong> ${obj.cardMask}</div>
+      <div><strong>Email:</strong> ${obj.email || '—'}</div>
+      <div class="mt-2 muted-small">Saved at: ${new Date().toLocaleString()}</div>
+    `;
+    receiptArea.classList.remove('d-none');
+    receiptArea.innerHTML = html;
+  }
+
+  // Live preview update
+  function updatePreview() {
+    previewNumber.textContent = cardNumberInput.value || '4242 4242 4242 4242';
+    previewName.textContent = cardNameInput.value || 'Test User';
+    previewExp.textContent = cardExpInput.value || '12/34';
+    document.getElementById('pay-amount').textContent = `($${parseFloat(amountInput.value || 0).toFixed(2)})`;
+  }
+  [cardNumberInput, cardNameInput, cardExpInput, amountInput].forEach(el => el.addEventListener('input', updatePreview));
+  updatePreview();
+
+  // Simple mask helper for receipt
+  function maskCard(num) {
+    const digits = num.replace(/\s+/g, '');
+    if (digits.length < 4) return '****';
+    return '**** **** **** ' + digits.slice(-4);
+  }
+
+  // Fake server processing delay
+  function delay(ms) { return new Promise(res => setTimeout(res, ms)); }
+
+  payBtn.addEventListener('click', async () => {
+    clearAlert();
+    receiptArea.classList.add('d-none');
+    const amount = parseFloat(amountInput.value);
+    const mode = modeSelect.value;
+    const name = cardNameInput.value.trim();
+    const cardNumber = cardNumberInput.value.trim();
+    const exp = cardExpInput.value.trim();
+    const cvc = document.getElementById('card-cvc').value.trim();
+    const email = document.getElementById('bill-email').value.trim();
+
+    // Basic checks
+    if (!amount || amount <= 0) { showAlert('danger','Enter a valid amount.'); return; }
+    if (!name) { showAlert('danger','Cardholder name required.'); return; }
+    if (!cardNumber) { showAlert('danger','Card number required.'); return; }
+
+    showSpinner(true);
+    // simulate network + processing
+    await delay(1200);
+
+    if (mode === 'fail') {
+      showSpinner(false);
+      showAlert('danger','Payment failed — mock processor declined the card. Try simulate success.');
+      localStorage.removeItem('mock_payment_status');
+      return;
+    }
+
+    // success path
+    const fakeId = 'pay_' + Math.random().toString(36).slice(2,10);
+    const payload = {
+      id: fakeId,
+      amount: amount.toFixed(2),
+      email: email || null,
+      cardMask: maskCard(cardNumber),
+      createdAt: new Date().toISOString()
+    };
+
+    // store mock payment (optional)
+    localStorage.setItem('mock_payment_status', JSON.stringify(payload));
+
+    showSpinner(false);
+    showAlert('success', `<strong>Payment processed (mock)</strong> — Payment ID: <code>${payload.id}</code>`);
+    showReceipt(payload);
+
+    // Optional: redirect to "order confirmation" after short delay
+    // setTimeout(()=> window.location.href = '/order-confirmation?pid='+payload.id, 1600);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    amountInput.value = '49.99';
+    modeSelect.value = 'success';
+    cardNameInput.value = 'Test User';
+    cardNumberInput.value = '4242 4242 4242 4242';
+    document.getElementById('card-exp').value = '12/34';
+    document.getElementById('card-cvc').value = '123';
+    document.getElementById('bill-email').value = '';
+    clearAlert();
+    receiptArea.classList.add('d-none');
+    updatePreview();
+  });
+</script>
+
+</body>
+</html>

@@ -86,8 +86,6 @@ https://templatemo.com/tm-559-zay-shop
                             </div>
                         </div>
                     </div>
-                    
-                </div>
             </div>
 
         </div>
@@ -115,9 +113,9 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Start Content Page -->
     <div class="container-fluid bg-light py-5">
         <div class="col-md-6 m-auto text-center">
-            <h1 class="h1">Add Products</h1>
+            <h1 class="h1">Place a Order</h1>
             <p>
-                Add Products here so they can be displayd on the site.
+                Submit this form to order any product.
             </p>
         </div>
     </div>
@@ -128,69 +126,44 @@ https://templatemo.com/tm-559-zay-shop
     <!-- Start Contact -->
     <div class="container py-5">
         <div class="row py-5">
-            <form class="col-md-9 m-auto" method="post" role="form">
+            <form class="col-md-9 m-auto" action="/orders/add" method="POST" role="form">
                 <div class="row">
                     <div class="form-group col-md-6 mb-3">
                         <label for="inputname">Name</label>
-                        <input type="text" class="form-control mt-1" id="name" name="name" placeholder="Product Name">
+                        <input type="text" class="form-control mt-1" id="name" value="{{ name }}" name="name" placeholder="Product Name">
                     </div>
                     <div class="form-group col-md-6 mb-3">
-                        <label for="inputemail">Price</label>
-                        <input type="text" class="form-control mt-1" id="price" name="price" placeholder="Price">
+                        <label for="inputemail"></label>
+                        <input type="hidden" class="form-control mt-1" value="{{ amount }}" id="price" name="price" placeholder="Price">
                     </div>
+                </div>                
+                <div class="mb-3">
+                    <label for="inputsubject">Username</label>
+                    <input type="text" class="form-control mt-1" id="category" name="user" placeholder="Enter your Name">
                 </div>
                 <div class="mb-3">
-                    <label for="inputsubject">Stock</label>
-                    <input type="text" class="form-control mt-1" id="stock" name="stock" placeholder="Available number">
+                    <label for="inputsubject"></label>
+                    <input type="hidden" class="form-control mt-1" id="brand" name="status" value="pending" placeholder="Brand name">
                 </div>
                 <div class="mb-3">
-                    <label for="inputmessage">Description</label>
-                    <textarea class="form-control mt-1" id="description" name="description" placeholder="Description" rows="8"></textarea>
-                </div>
-</div>
-                <div class="mb-3">
-                    <label for="inputmessage">specification</label>
-                    <textarea class="form-control mt-1" id="specification" name="specification" placeholder="specification" rows="8"></textarea>
+                    <label for="inputsubject">Quantity</label>
+                    <input type="text" class="form-control mt-1" id="img1" value="{{ quantity }}" name="quantity" placeholder="Enter quantity">
                 </div>
                 <div class="mb-3">
-                    <label for="inputsubject">Category</label>
-                    <input type="text" class="form-control mt-1" id="category" name="category" placeholder="e.g: Men, Women, Child">
+                    <label for="inputsubject">Size</label>
+                    <input type="text" class="form-control mt-1" id="img2" value="{{ size }}" name="size" placeholder="Enter name">
                 </div>
                 <div class="mb-3">
-                    <label for="inputsubject">Brand</label>
-                    <input type="text" class="form-control mt-1" id="brand" name="brand" placeholder="Brand name">
+                    <label for="inputsubject">Adress:</label>
+                    <input type="text" class="form-control mt-1" id="img3" name="adress" placeholder="Enter adress where product will be delievered ">
                 </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Img1</label>
-                    <input type="text" class="form-control mt-1" id="img1" name="img1" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Img2</label>
-                    <input type="text" class="form-control mt-1" id="img2" name="img2" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">img3</label>
-                    <input type="text" class="form-control mt-1" id="img3" name="img3" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">img4</label>
-                    <input type="text" class="form-control mt-1" id="img4" name="img4" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Img5</label>
-                    <input type="text" class="form-control mt-1" id="img5" name="img5" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Img6</label>
-                    <input type="text" class="form-control mt-1" id="img6" name="img6" placeholder="Enter name">
-                </div>
-                <div class="mb-3">
-                    <label for="inputsubject">Img7</label>
-                    <input type="text" class="form-control mt-1" id="img7" name="img7" placeholder="Enter name">
-                </div>
+	       <div>
+    		<input type="checkbox" class="btn btn-primary" id="cod" name="cod">
+    		<label for="cod">Order on Delivery (Cash on Delivery)</label>
+  	      </div>
                 <div class="row">
                     <div class="col text-end mt-2">
-                        <button type="submit" class="btn btn-success btn-lg px-3">Add</button>
+                        <button type="submit" class="btn btn-secondary btn-lg px-3">Submit</button>
                     </div>
                 </div>
             </form>
