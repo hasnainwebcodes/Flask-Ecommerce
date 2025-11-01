@@ -27,7 +27,7 @@ bcrypt= Bcrypt(app)
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 blacklist = set()
-stripe.api_key = "sk_test_51SBVr9DRIV9EVyvD2849lleX4nCEVrk8TkgnJ3ZXoxwIHFbrdYKHjR5D2iOqT19Z5Bogn9FoZ67f56jntlVGXnxn00JrMDXKEZ"
+stripe.api_key = ""
 PUBLISHABLE_KEY ="pk_test_51SBVr9DRIV9EVyvDsJq69RKUGnOqwYd5bydXmwCkwwl1EaEEUMXX4TgfYiLX4OYZqmHsjPEpssI2yKYhQL75H7hP00QwBZuRF3"
 
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
