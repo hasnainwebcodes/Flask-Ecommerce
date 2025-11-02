@@ -4,7 +4,7 @@ from datetime import datetime
 import os,stripe
 from flask_jwt_extended.exceptions import NoAuthorizationError, RevokedTokenError, FreshTokenRequired
 import time
-from math import floor
+from math import ceil
 from werkzeug.utils import secure_filename as sf
 from flask_mail import Mail
 import json
@@ -130,24 +130,25 @@ def products():
         page = int(page)
 
     posts = Products.query.all()
-    per_page = 15
-    last = floor(len(posts) / per_page)
+    per_page =15
+    last = ceil(len(posts) / per_page)
     if page==last:
          posts = posts[(page-1)*per_page :]
     else:
          posts = posts[(page-1)*per_page : (page-1)*per_page + per_page]
 
-    if page == 1:
-        prev = "#"
-        nex = "/?page=" + str(page + 1)
-    elif page == last:
-        nex = "#"
-        prev = "/?page=" + str(page - 1)
+    if page <= 1:
+         prev = "#"
     else:
-        prev = "/?page=" + str(page - 1)
-        nex = "/?page=" + str(page + 1)
+         prev = f"/products?page={page - 1}"
 
-    return render_template("shop.html", posts=posts, prev=prev, nex=nex)
+    if page >= last:
+         nex = "#"
+    else:
+         nex = f"/products?page={page + 1}"
+
+
+    return render_template("shop.html", posts=posts, nex=nex, prev=prev)
 @app.route("/products/<string:category>")
 def products_cat(category):
     page = request.args.get('page')
@@ -241,15 +242,15 @@ def edit_product(id):
           product.stock= request.form.get('stock')
           product.brand= request.form.get('brand')
           product.category= request.form.get('category')
-          product.img1= request.form.get('img1')
-          product.img2= request.form.get('img2')
-          product.img3= request.form.get('img3')
-          product.img4= request.form.get('img4')
-          product.img5= request.form.get('img5')
-          product.img6= request.form.get('img6')
-          product.img7= request.form.get('img7')
+          product.image1= request.form.get('img1')
+          product.image2= request.form.get('img2')
+          product.image3= request.form.get('img3')
+          product.image4= request.form.get('img4')
+          product.image5= request.form.get('img5')
+          product.image6= request.form.get('img6')
+          product.image7= request.form.get('img7')
           db.session.commit()
-          return redirect("/products/"+ id)
+          return redirect("/products/"+ str(id))
      product= Products.query.filter_by(id=id).first()
      return render_template("edit_product.html",product=product)
 @app.route("/products/<int:id>/delete", methods=["GET","POST"])

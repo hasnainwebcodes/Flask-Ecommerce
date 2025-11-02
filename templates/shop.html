@@ -144,9 +144,9 @@ https://templatemo.com/tm-559-zay-shop
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="shop-single.html" class="h3 text-decoration-none">{{ product.name }}</a>
+                                <a href="shop-single.html" class="h3 text-decoration-none"><strong>{{ product.name }}</strong></a>
                                 <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                    <li>{{ product.brand }}</li>
+                                    <li>Brand: <strong>{{ product.brand }}</strong></li>
                                     <li class="pt-2">
                                         <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
                                         <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
@@ -164,8 +164,8 @@ https://templatemo.com/tm-559-zay-shop
     </div>
     <!-- End Content -->
 <div class="d-flex justify-content-between mb-4">
-	  <a class="btn btn-secondary text-uppercase float-left" href="{{prev}}">&larr; Previous</a>
-            <a class="btn btn-secondary text-uppercase" float href="{{nex}}">Next →</a>
+	  <a class="btn btn-secondary text-uppercase float-left" href="{{ prev }}">&larr; Previous</a>
+            <a href="{{ nex }}" class="btn btn-secondary text-uppercase float-right">Next &rarr;</a>
         </div>
     <!-- Start Brands -->
     <section class="bg-light py-5">

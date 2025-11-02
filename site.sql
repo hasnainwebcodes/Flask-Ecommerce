@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Nov 01, 2025 at 11:28 AM
+-- Generation Time: Nov 02, 2025 at 08:41 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -89,13 +89,13 @@ CREATE TABLE `products` (
   `price` int(11) NOT NULL,
   `stock` int(11) DEFAULT NULL,
   `brand` varchar(20) NOT NULL,
-  `image1` varchar(20) NOT NULL,
-  `image2` varchar(20) NOT NULL,
-  `image3` varchar(20) NOT NULL,
-  `image4` varchar(20) NOT NULL,
-  `image5` varchar(20) NOT NULL,
-  `image6` varchar(20) NOT NULL,
-  `image7` varchar(20) NOT NULL,
+  `image1` varchar(30) NOT NULL,
+  `image2` varchar(30) NOT NULL,
+  `image3` varchar(30) NOT NULL,
+  `image4` varchar(30) NOT NULL,
+  `image5` varchar(30) NOT NULL,
+  `image6` varchar(30) NOT NULL,
+  `image7` varchar(30) NOT NULL,
   `category` varchar(10) NOT NULL,
   `specification` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -105,9 +105,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `stock`, `brand`, `image1`, `image2`, `image3`, `image4`, `image5`, `image6`, `image7`, `category`, `specification`) VALUES
-(1, 'test', 'this is thei onfkl', 15, 1, 'test', 'banner_img_03.jpg', 'test1', 'test', 'test', 'test', 'test', 'test', 'men', 'dfgjdfgklfgjkfdg'),
-(3, 'hasnain raza vighio', 'thsi is ', 10, 1000, 'TEST', 'shop_01.jpg', 'shop_02.jpg', 'shop_03.jpg', 'shop_04.jpg', 'shop_05.jpg', 'shop_06.jpg', 'shop_07.jpg', 'Men', 'lorem\r\nipsum'),
-(4, 'Ok', 'THis is is ', 30000, 1000, 'TEST', 'shop_01.jpg', 'shop_02.jpg', 'shop_03.jpg', 'shop_04.jpg', 'shop_05.jpg', 'shop_06.jpg', 'shop_07.jpg', 'Children', 'lorem\r\nipsum');
+(1, 'Sports', '   This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed.    ', 25, 4, 'Nike', 'banner_img_01.jpg', 'banner_img_02.jpg', 'banner_img_03.jpg', 'brand_01.png', 'brand_02.png', 'brand_03.png', 'brand_04.png', 'Men', '   This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(2, 'Stylish Watch', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ', 10, 5, 'Rolex', 'category_img_01.jpg', 'feature_prod_02.jpg', 'category_img_02.jpg', 'category_img_03.jpg', 'feature_prod_01.jpg', 'feature_prod_03.jpg', 'category_img_01.jpg', 'Men', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(3, 'Active', '   This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed.    ', 10, 10, 'Easy', 'product_single_07.jpg', 'product_single_01.jpg', 'product_single_02.jpg', 'product_single_03.jpg', 'product-single_04.jpg', 'product_single_05.jpg', 'product_single_06.jpg', 'Women', '   This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(4, 'Active Wear', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ', 25, 10, 'Yoga Wear', 'product_single_03.jpg', 'product_single_04.jpg', 'product_single_05.jpg', 'product_single_06.jpg', 'product-single_07.jpg', 'product_single_08.jpg', 'product_single_09.jpg', 'Women', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(5, 'Glasses', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ', 10, 1000, 'Nike', 'shop_01.jpg', 'shop_02.jpg', 'shop_03.jpg', 'category_img_03.jpg', 'shop_04.jpg', 'shop_05.jpg', 'shop_06.jpg', 'Child', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(6, 'Coat', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ', 50, 10, 'H&M', 'shop_07.jpg', 'shop_08.jpg', 'shop_03.jpg', 'shop_10.jpg', 'shop_11.jpg', 'shop_09.jpg', 'shop_07.jpg', 'Men', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. '),
+(7, 'Water Cooler', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ', 10, 2, 'Levis', 'feature_prod_01.jpg', 'banner_img_02.jpg', 'product_single_02.jpg', 'brand_01.png', 'shop_11.jpg', 'feature_prod_03.jpg', 'category_img_01.jpg', 'Child', 'This is a test production involved just for testing you can see it order it and check the site for free. Note No real orders will be placed. ');
 
 -- --------------------------------------------------------
 
@@ -185,7 +189,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `users`
 --
